@@ -38,6 +38,7 @@ class post(models.Model):
 	category = models.CharField(max_lenght=1, help_text='Seleccione la categoria de la publicación', choices=categories)
 
 class comment(models.Model):
+	'''Modelo de la talba comentarios que esta relacionada con una publicación en especifico'''
 	 post=models.ForiegnKey(post,help_text='Seleccione la publicación')
 	 comment = models.CharField(max_lenght=1000,help_text='Escriba su comentario')
 	 pubdate=models.DateTimeField(auto_now=True)
