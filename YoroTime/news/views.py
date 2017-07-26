@@ -37,10 +37,18 @@ class PostsIndex(generic.ListView):
         """Retorna todas las publicaciones"""
         return post.objects.all()
 
+class PostDetail(generic.DetailView):
+    """Muestra un post en especifico"""
+    model = post
+    template_name = 'posts/post.html'
+    def get_queryset(self):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        return post.objects.filter(id=pk)
+
 class AuthorPosts(generic.DetailView):
     """Enlista las publicaciones de un autor en especifico"""
     model = post
-    template_name = 'posts/AuthorPosts.html'
+    template_name = 'posts/authorposts.html'
     def get_queryset(self):
         fk = self.kwargs.get(self.pk_url_kwarg)
         return post.objects.filter(author=fk)
@@ -48,7 +56,7 @@ class AuthorPosts(generic.DetailView):
 class CommentsPost(generic.DetailView):
     """Enlista los comentarios de una publicación en especifico"""
     model = comment
-    template_name = 'posts/allcomment.html'
+    template_name = 'posts/allcomments.html'
     def get_queryset(self):
         fk = self.kwargs.get(self.pk_url_kwarg)
         return comment.objects.filter(post=fk)
