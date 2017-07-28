@@ -60,3 +60,19 @@ class CommentsPost(generic.DetailView):
     def get_queryset(self):
         fk = self.kwargs.get(self.pk_url_kwarg)
         return comment.objects.filter(post=fk)
+
+class AuthorPostsSince(generic.DetailView):
+    """Enlista las publicaciones de un autor con una fecha en especifico antes"""
+    model = post
+    template_name = 'posts/authorposts.html'
+    def get_queryset(self):
+        date_since = self.kwargs.get(self.pk_url_kwarg)
+        return post.objects.filter(pudate__gte=date_since)
+
+class AuthorPostsAfter(generic.DetailView):
+    """Enlista las publicaciones de un autor con una fecha en especifico antes"""
+    model = post
+    template_name = 'posts/authorposts.html'
+    def get_queryset(self):
+        date_after = self.kwargs.get(self.pk_url_kwarg)
+        return post.objects.filter(pudate__gte=date_after)
