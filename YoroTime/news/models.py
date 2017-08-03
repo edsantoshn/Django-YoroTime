@@ -20,6 +20,9 @@ class author(models.Model):
 	Bday = models.DateField(help_text='Seleccione la fecha de nacimiento')
 	email = models.EmailField(help_text='Escriba el email de contacto del autor')
 
+	def __str__(self):
+		return self.name
+	
 class post(models.Model):
 	categories = (
 			('N','News'),
@@ -36,10 +39,14 @@ class post(models.Model):
 	pubdate = models.DateTimeField(auto_now=True)
 	author = models.ForiegnKey(Author,help_text='Seleccione al autor')
 	category = models.CharField(max_lenght=1, help_text='Seleccione la categoria de la publicación', choices=categories)
-
+	def __str__(self):
+		return self.title
+	
 class comment(models.Model):
 	'''Modelo de la talba comentarios que esta relacionada con una publicación en especifico'''
 	 post=models.ForiegnKey(post,help_text='Seleccione la publicación')
 	 comment = models.CharField(max_lenght=1000,help_text='Escriba su comentario')
 	 pubdate=models.DateTimeField(auto_now=True)
 	 
+	def __str__(self):
+		return self.post.set_all.title
